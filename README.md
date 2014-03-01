@@ -1,5 +1,4 @@
-Guardian jQuery Plugin
-========
+# Guardian jQuery Plugin
 
 *Copyright (c) 2014, Michael Eisenbraun*
 
