@@ -1,0 +1,15 @@
+/*variables*/
+.ui-state-invalid > input[type="text"], .ui-state-invalid > input[type="tel"], .ui-state-invalid > input[type="email"], .ui-state-invalid > input[type="number"], .ui-state-invalid > select, .ui-state-invalid > textarea {
+  border-color: #bd1a00;
+  background-image: url(../images/invalid.png);
+  background-position: 95% center;
+  background-repeat: no-repeat; }
+
+.ui-state-valid > input[type="text"], .ui-state-valid > input[type="tel"], .ui-state-valid > input[type="email"], .ui-state-valid input[type="number"], .ui-state-valid > select, .ui-state-valid > textarea {
+  border-color: #00b233;
+  background-image: url(../images/valid.png);
+  background-position: 95% center;
+  background-repeat: no-repeat; }
+
+.ui-error-message {
+  color: #bd1a00; }

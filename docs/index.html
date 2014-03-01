@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="ie8" lang="en"> <![endif]-->
+<!--[if IE 9]>    <html class="ie9" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!--> <html lang="en" id="api"> <!--<![endif]-->
+	<head>
+		<meta charset="utf-8">
+		<title>Guardian 1.0 API Documentation</title>
+		
+		<meta name="description" content="">
+  	<meta name="author" content="">
+  	<!-- Include *at least* the core style and default theme -->
+	<link href="../../syntaxhighlighter/styles/shCore.css" rel="stylesheet" type="text/css" />
+	<link href="../../syntaxhighlighter/styles/shThemeDefault.css" rel="stylesheet" type="text/css" />
+
+    <link href="../../css/docs.css" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    
+    <!-- Include required JS files -->
+    <script type="text/javascript" src="../../syntaxhighlighter/scripts/shCore.js"></script>
+ 
+	<!--
+	    At least one brush, here we choose JS. You need to include a brush for every 
+	    language you want to highlight
+	-->
+	<script type="text/javascript" src="../../syntaxhighlighter/scripts/shBrushJScript.js"></script>
+	<script type="text/javascript" src="../../syntaxhighlighter/scripts/shBrushXml.js"></script>
+
+		    
+	    
+  	</head> 	
+  	<body>
+  		<p><em>Copyright (c) 2014, Michael Eisenbraun<br>
+Created: 2014-02-05<br>
+Updated: 2014-02-05 <small><a href="#log">change log</a></small></em></p>
+  		<h1>Guardian 1.0</h1>
+  		
+  		<p>Guardian is a all-purpose form validation jQuery plugin. It was designed to be flexible and easy to extend to meet any need. </p>
+  		  		
+  		<div class="section">
+  			<h3>Installation</h3> 
+  			<div class="content"> 
+  				<p><strong>JavaScript</strong></p>
+  				<p>Include the jQuery Library 1.7 or later and the Guardian Plugin File:</p> 
+  				<pre class='brush: xml'>
+  					<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  					<script src="js/jquery.guardian-1.0.min.js"></script></pre>
+  				<p>Initialize Guardian:</p>
+		          <pre class="brush: js">
+		          $(document).ready(function() {
+		              $('#example').guardian();
+		          });
+		          </pre>
+
+  				<p><strong>CSS</strong> (optional)</p> 
+  				<pre class='brush: xml'><link rel="stylesheet" href="css/guardian.css"></pre>
+  				
+  				
+  				<p><strong>HTML</strong></p>
+
+				  <p>A form tag must be included and all inputs must be within the form. In Guardian now the <code>novalidate</code> attribute is added to the form tag during initialization. This attribute prevents the browser's native validation from activating.</p> 
+
+          <p>Guardian uses input attributes to determine which inputs to validate and how to validate them, see Input Attributes for more information.</p>
+				
+				 <pre class="brush:xml"> 
+					<form id="contactForm"><input type="text" name="Address" id="Address" class="text" tabindex="3" value="" required data-pattern="alphaNum" data-error-message="Address is required"></form>
+				</pre>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>Input Attributes</h3>
+        <div class="content">
+          <p>Each input that needs to be validated may include the following attributes, depending on whether the input is required and how the input value should be validated.</p>
+  			
+		  <ul>
+            <li>
+              <h3>data-counter</h3>
+              <div class="content">
+                <p><strong>Attribute</strong></p>
+                <p>If a input needs to have a character limit, common for textareas, you may add the data-counter attribute. This will add a counter below the field as shown below.</p>
+                <pre class='brush: xml'>
+                <textarea name="Custom_1_" rows="2" cols="50" class="comment" id="comment" tabindex="12" maxlength="250" data-counter="true"></textarea></pre>
+              </div>
+            </li>
+            <li>
+              <h3>data-empty-message</h3> 
+              <div class="content">
+                <p><strong>Attribute</strong></p>
+                <p>The message that will appear below the input, when a required field is empty. The error message is shown on "blur" as long as the required field is empty and hidden on "focus".</p>
+                
+                <pre class="brush: xml"><input type="text" name="phone" data-empty-message="Please provide your phone number."></pre>
+
+                <p>The following is the HTML structure created for the error message. NOTE: Both error message and empty message share the same element.</p>
+
+                <pre class='brush: xml'>
+                <p class="ui-error-message" id="error-message-phone"></p></pre>
+              </div>
+            </li>
+            <li>
+              <h3>data-error-message</h3> 
+              <div class="content">
+                <p><strong>Attribute</strong></p>
+                <p>The message that will appear below the input, when a field is invalid. NOTE: If the <code>data-empty-message</code> attribute is set and the field is empty and required, then the empty message will display instead of the error message. The error message is shown on "blur" as long as the required field is empty and hidden on "focus".</p>
+               
+                <pre class="brush: xml"><input type="text" name="phone" data-error-message="Please use a valid phone number"></pre>
+
+                <p>The following is the HTML structure created for the error message. NOTE: Both error message and empty message share the same element.</p>
+                <pre class='brush: xml'>
+                <p class="ui-error-message" id="error-message-phone"></p></pre>
+              </div>
+            </li>
+            <li>
+              <h3>data-group-name</h3>
+              <div class="content">
+                <p><strong>Attribute</strong></p>
+                <p>The name of the group. Every group name must be unique. For more information, see Grouping.</p>
+              </div>
+            </li>
+            <li>
+              <h3>data-group-members</h3>
+              <div class="content">
+                <p><strong>Attribute</strong></p>
+                <p>A list input names that are part of the group. Names are separated by a space. For more information, see Grouping.</p>
+              </div>
+            </li>
+            <li>
+              <h3>data-match-input</h3>
+              <div class="content">
+                <p><strong>Attribute</strong></p>
+                <p>The id of the input that needs to be matched. For more information, see matching.</p>
+              </div>
+            </li>
+            <li>
+              <h3>data-pattern</h3>
+              <div class="content">
+                <p><strong>Attribute</strong></p> 
+                <p>The validation pattern that the input value will be validated against (See Global Object:$patterns below). This attribute should be included on every input required or optional (exceptions: radio buttons, check boxes, select boxes), but each input can only have one pattern. If data-pattern is not included the input will be validated as <span class="code">alphaNum</span>.</p>
+                <pre class="brush: xml"><input type="text" name="phone" data-pattern="phone"></pre>
+              </div>
+            </li> 
+              		<li>
+  						<h3>required</h3>
+  						<div class="content">
+  							<p><strong>Attribute</strong></p>
+  							<p>This declares that the input cannot be left blank. If <code>required</code> is set, but the <code>data-pattern</code> attribute is not, the input will be validated as <code>alphaNum</code></p>
+  							<pre class="brush: xml"><input type="text" name="phone" data-pattern="phone" required="required"></pre>
+  						</div>
+  					</li>
+  				</ul>	
+  					
+  		  </div> 
+  		</div> 
+
+      <div class="section">
+        <h3>Options</h3>
+        <div class="content">
+          <p>Guardian has made it easy to customize and extend the plugin.</p>
+
+          <p>There two types of options, variables and functions. Variables are used to store class names and string data, where as functions allow for the functionality of the plugin to be extended or customize it for your specific needs. For examples on extending the Guardian, see Extending.</p>  
+          
+          <pre class="brush: js">
+            $(document).ready(function() {
+              $('#contactForm').guardian({
+                invalid:'my-invalid-class',
+                failure: function() {
+                  $('#contactForm').prepend('<span>There are '+this.getInvalid().length+ ' invalid fields.</span>'); 
+                }
+              });
+            });
+          </pre>
+
+          <ul> 
+            <li>
+              <h3>before</h3>
+              <div class="content">
+                <p><strong>Function</strong></p>
+                <p>If set, invokes before submit validation</p>
+                <p>Default: <code>null</code></p>
+                <pre class="brush: js">
+                  $('form').guardian({ 
+                    before:function() { 
+                      console.log(this);
+                    }
+                  });</pre>
+              </div>
+            </li>
+            <li>
+              <h3>extend</h3>
+              <div class="content">
+                <p><strong>Function</strong></p>
+                <p>If set, invokes after initialization</p>
+                <p>Default: <code>null</code></p>
+                <pre class="brush: js">
+                  $('form').guardian({ 
+                    extend:function() { 
+                      console.log(this);
+                    }
+                  });</pre>
+              </div>
+            </li>    
+            <li>
+              <h3>failure</h3>
+              <div class="content">
+                <p><strong>Function</strong></p>
+                <p>If set, invokes after submit validation has failed</p>
+                <p>Default: <code>null</code></p>
+                <pre class="brush: js">
+                  $('form').guardian({ 
+                    failure:function() { 
+                      console.log(this);
+                    }
+                  });</pre>
+              </div>
+            </li>  
+            <li>
+              <h3>highlight</h3>
+              <div class="content">
+                <p><strong>String</strong></p>
+                <p>Name of the class for fields that have focus</p>
+                <p>Default: <code>'ui-state-highlight'</code></p>
+              </div>
+            </li>     
+            <li>
+              <h3>invalid</h3>
+              <div class="content">
+                <p><strong>String</strong></p>
+                <p>Name of the class for invalid fields</p>
+                <p>Default: <code>'ui-state-invalid'</code></p>
+              </div>
+            </li>   
+            <li>
+              <h3>success</h3>
+              <div class="content">
+                <p><strong>Function</strong></p>
+                <p>If set, invokes after submit validation is successful</p>
+                <p>Default: <code>null</code></p>
+                <pre class="brush: js">
+                  $('form').guardian({ 
+                    success:function() { 
+                      console.log(this);
+                    }
+                  });</pre>
+              </div>
+            </li>    
+            <li>
+              <h3>valid</h3>
+              <div class="content">
+                <p><strong>String</strong></p>
+                <p>Name of the class for valid fields</p>
+                <p>Default: <code>'ui-state-valid'</code></p>
+              </div>
+            </li>    
+            <li>
+              <h3>validateCustom(jQuery object)</h3>
+              <div class="content">
+                <p><strong>Function</strong></p>
+                <p>Use to create a custom validation process for inputs within the 'custom' catagory (not available for select boxes or textareas)</p>
+                <p>Default: <code>null</code></p>
+                <pre class="brush: js">
+                  $('form').guardian({ 
+                    validateCustom:function(el) { 
+                      console.log(el);
+                    }
+                  });</pre>
+              </div>
+            </li>                  
+          </ul> 
+
+        </div>
+      </div>	
+
+      <div class="section">
+        <h3>Grouping</h3>
+        <div class="content">
+          <p>Grouping is a means of validating multiple inputs as one. Meaning that all inputs must valid for the group to be valid. Grouping could also be used to set a specific element to receive the state classes. All group data is stored within the Global Object in the $groups object. Groups are adding automatically during initialization.</p>
+
+          <p>To use grouping, the <span class="code">data-group-name</span>, the <span class="code">data-group-members</span> and <span class="code">id</span> attributes must be added to a parent tag. The following is example of input grouping</p>
+          
+          <ul> 
+      			<li>
+      				<h3>data-group-name</h3>
+      				<div class="content">
+      					<p><strong>Attribute</strong></p>
+      					<p>The name of the group. Every group name must be unique.</p>
+      				</div>
+      			</li>
+      			<li>
+      				<h3>data-group-members</h3>
+      				<div class="content">
+      					<p><strong>Attribute</strong></p>
+      					<p>A list input names that are part of the group. Names are separated by a space.</p>
+      				</div>
+      			</li>
+      			<li>
+      				<h3>id</h3>
+      				<div class="content">
+      					<p><strong>Attribute</strong></p>
+      					<p>This need to be the same value as data-group-name.</p>
+      				</div>
+      			</li>
+		      </ul>
+			
+          
+          <pre class='brush: xml'>
+            <div data-group-name="name" id="name" data-group-members="FirstName LastName">
+            <label for="FirstName">First Name</label><br>
+            <input type="text" id="FirstName" name="FirstName" class="text" title="" tabindex="1" value=""  data-pattern="num" min="1" max="10" required data-error-message="First Name is required.">
+    
+            <label for="LastName">Last Name</label><br>
+            <input type="text" required name="LastName" id="LastName" class="text" title="" tabindex="2" value=""  data-pattern="alpha" data-error-message="Last Name is required">
+            </div>
+          </pre>
+
+          <p>Checkbox grouping is slightly different in respects, the parent has optional data-group-min and data-group-max attributes and checkbox groups will appear in the $inputs object as one group, whereas input grouping show each individual input.</p>
+
+          <p>The following is an example of checkbox grouping.</p>
+
+          <pre class='brush: xml'>
+            <fieldset id="areas_of_interest" data-group-name="areas_of_interest" data-group-min="3" data-group-max="5" data-group-members="areas_of_interest">
+            <input type="checkbox" name="areas_of_interest" id="Annuities" value="Annuities" tabindex="16" class="float-left no-border"><label for="Annuities" class="float-left"> Annuities</label>
+            
+            <input type="checkbox" name="areas_of_interest" id="Financial_Planning" value="Financial" tabindex="20" class="float-left no-border"><label for="Financial_Planning" class="float-left">Financial Planning</label>
+            
+            <input type="checkbox" name="areas_of_interest" id="Mutual_Funds" value="Mutual Funds" tabindex="24" class="float-left no-border"><label for="Mutual_Funds" class="float-left">Mutual Funds</label></td>
+            </fieldset>
+          </pre>
+
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>Matching</h3>
+        <div class="content">
+          <p>Matching is a used to confirm that the value of one inputs matches that of another. This would commonly be used to confirm an email address or password.</p>
+          
+          <ul> 
+      			<li>
+      				<h3>data-pattern</h3>
+      				<div class="content">
+      					<p><strong>Attribute</strong></p>	
+      					<p>To used matching, data-pattern must have a value of <code>match</code>.</p> 
+      				</div>
+      			</li>
+      			<li>
+      				<h3>data-match-input</h3>
+      				<div class="content">
+      					<p><strong>Attribute</strong></p>
+      					<p>The id of the input that needs to be matched.</p>
+      				</div>
+      			</li>
+		      </ul>
+
+          <p>The following HTML is an example of how to use matching.</p>
+          <pre class='brush: xml'>
+            <label for="email">E-mail</label><br>
+            <input type="email" id="email" name="email" class="text" value="" required data-pattern="email" data-error-message="Enter a valid E-mail" tabindex="9">
+          
+            <label for="email">Confirm E-mail</label><br>
+            <input type="email" id="confirm-email" name="confirm-email" class="text" value="" required data-pattern="match" data-match-input="email" data-error-message="Email addresses do not match" tabindex="9">
+            
+          </pre>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>Extending</h3>
+        <div class="content">
+          <p>The following is a few commons ways to extend Guardian.</p>  
+          
+          <ul> 
+          	<li>
+              <h3>Disable validating on blur</h3>
+              <div class="content">
+                <p>To disable the inputs from validating on blur use the <strong>extend</strong> option, as shown below:</p>
+                <pre class="brush: js">
+                  $(document).ready(function() {
+                    $('form').guardian({
+                      extend: function() { 
+  						var $this = this; 
+  						$this.$el.off('change blur', ':input', $this.onBlur); 
+  					  }
+                    });
+                  });</pre>
+              </div>
+            </li>        
+            <li>
+              <h3>Display the number of invalid fields on submit</h3>
+              <div class="content">
+                <p>To display a message with the number of invalid fields, use the <code>failure</code> option, as shown below:</p>
+                
+                <pre class="brush: js">
+                  $(document).ready(function() {
+                    $('form').guardian({
+                      failure: function() {
+                        this.$el.prepend('<span>There are '+this.getInvalid().length+ ' invalid fields</span>'); 
+                      }
+                    });
+                  });</pre>
+              </div>
+            </li>
+            <li>
+              <h3>Alert user of unsaved changes</h3>
+              <div class="content">
+                <p>To add a confirmation box that alerts the user of unsaved changes before the user leaves the page use the <strong>extend</strong> option, as shown below:</p>
+                <pre class="brush: js">
+                  $(document).ready(function() {
+                    $('form').guardian({
+                      extend:function() {
+                        $(window).bind('beforeunload', function(event) {
+                          //check for changes and that form has not been submitted
+                          if(this.$status.changed && !this.$status.submitted) {
+                            return 'You have unsaved changes.';
+                          }
+                        });
+                      }
+                    });
+                  });</pre>
+              </div>
+            </li>           
+          </ul> 
+
+        </div>
+      </div>
+
+
+      <div class="section">
+        <h3>Global Object</h3>
+        <div class="content">
+            <p>The major difference between version 2 and version 3 is the introduction of the Global Object. All objects, arrays, methods and variables are available through the Global Object.</p>
+
+            <p>The Global Object is accessible from any settings function (e.g. extend) through the <code>this</code> variable, as shown below. </p>
+            
+           <pre class="brush: js">
+              $('#contactForm').guardian({ extend: function() { console.log(this); } });</pre>
+              
+            <p>The guardian function also returns the Global Object making it possible to access the methods and variables outside of the validate invocation.</p>
+            
+        	<pre class="brush: js">
+              var guardian = $('#contactForm').guardian(); console.log(guardian); </pre>
+              
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>Global Object:$pattern</h3>
+        <div class="content">
+            <p><code>$patterns</code> is an object of regular expressions used the validation of input value. The name of each pattern can be used in the value of the <code>data-pattern</code> attribute.  The following is a list of the patterns found in the <code>$patterns</code> object. Additional patterns maybe add using the <code>addPatterns(obj)</code> method.</p> 
+            <p>For security reasons, text inputs and textareas that have no pattern attribute, but are required or have a value are validated using <code>alphaNum</code>. </p>
+
+            <ul>
+            	<li>
+            		<h3>alpha</h3>
+            		<div class="content">
+            			<p><strong>RegExp</strong></p>
+            			<p>Description: characters (lower and upper) + "_" + "'" + "&"</p>
+            			<p>RegExp: <code>/^[a-z_'&]+$/i</code></p>
+            		</div>
+            	</li>
+            	<li>
+            		<h3>alnum</h3>
+            		<div class="content">
+            			<p><strong>RegExp</strong></p>
+            			<p>Description: characters (lower and upper) + numbers + "_" + "'" + "&"</p>
+            			<p>RegExp: <code>/^[\w'&]+$/</code></p>
+            		</div>            	
+				      </li>
+				      <li>
+            		<h3>number</h3>
+            		<div class="content">
+            			<p><strong>RegExp</strong></p>
+            			<p>Description: numbers (integers and decimals)</p>
+            			<p>RegExp: <code>/^(-?)((\d+)|(\d+).(\d*))$/</code></p>
+            		</div>            	
+				      </li>
+				      <li>
+            		<h3>zip</h3>
+            		<div class="content">
+            			<p><strong>RegExp</strong></p>
+            			<p>Description: zip code (5 or 9)</p>
+            			<p>RegExp: <code>/(^\d{5,9}$)|(^\d{5}-\d{4}$)/</code></p>
+            		</div>            	
+				      </li>
+				       <li>
+            		<h3>currency</h3>
+            		<div class="content">
+            			<p><strong>RegExp</strong></p>
+            			<p>Description: numbers or decimals (2 places) with optional $</p>
+            			<p>RegExp: <code>/^[$]?\d{1,3}(?:,?\d{3})*(?:\.\d{2})?$/</code></p>
+            		</div>            	
+				      </li>
+                      <li>
+            		<h3>year</h3>
+            		<div class="content">
+            			<p><strong>RegExp</strong></p>
+            			<p>Description: full year either 19 or 20 prefix</p>
+            			<p>RegExp: <code>/(^(19|20)\d{2})$/</code></p>
+            		</div>            	
+				      </li>
+				      <li>
+            		<h3>phone</h3>
+            		<div class="content">
+            			<p><strong>RegExp</strong></p>
+            			<p>Description: 10 digit phone any standard format, number is reformatted on blur</p>
+            			<p>RegExp: <code> /^\(?(\d{3})\)?[-. ]?(\d{3})[-. ]?(\d{4})$/</code></p>
+            		</div>            	
+				      </li>
+				      <li>
+            		<h3>email</h3>
+            		<div class="content">
+            			<p><strong>RegExp</strong></p>
+            			<p>Description: email address allowing '.', '-', '_' and '&amp;', 2 to 6 character domain</p>
+            			<p>RegExp: <code>/^[\w&]([\w\-\.'&]*)@([\w\-\.]*)(\.[a-z]{2,6}(\.[a-z]{2}){0,2})$/i</code></p>
+            		</div>            	
+				      </li>
+				      <li>
+            		<h3>url</h3>
+            		<div class="content">
+            			<p><strong>RegExp</strong></p>
+            			<p>Description: web address formatting</p>
+            			<p>RegExp: <code>/^(([http|https]+):)(\/{2})([0-9.\-A-Za-z]+)\.([0-9.\-A-Za-z]+)\.([0-9.\-A-Za-z]+)(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$/</code></p>
+            		</div>            	
+				      </li>
+                      <li>
+          		  <h3>date</h3>
+            		<div class="content">
+            			<p><strong>RegExp</strong></p>
+            			<p>Description: month day year date format allow for full, abbreviated, or number months, one or two digit days, and two or four digit years (four digit year most begin with 19 or 20)</p>
+            			<p>RegExp: <code> /^(Jan|January|Feb|February|Mar|March|Apr|April|May|Jun|June|Jul|July|Aug|August|Sep|September|Oct|October|Nov|November|Dec|December|(0?\d{1})|(10|11|12))(-|\s|\/|\.)(0?[1-9]|(1|2)[0-9]|3(0|1))(-|\s|\/|\.|,\s)(19|20)?\d\d$/i
+                  </code></p>
+            		</div>            	
+				      </li>
+            </ul>
+         </div>
+      </div>
+
+      <div class="section">
+        <h3>Global Object: $status</h3>
+        <div class="content">
+            <p>$status is used to monitor the current status of the form based on the user action.</p>
+            <ul> 
+            	<li>
+            		<h3>changed</h3>
+            		<div class="content">
+            			<p><strong>Boolean</strong></p>
+            			<p>Description: equals <code>true</code> if any field value has changed since initialization</p>
+            		</div>
+            	</li>
+            	<li>
+            		<h3>submitted</h3>
+            		<div class="content">
+            			<p><strong>Boolean</strong></p>
+            			<p>Description: equals <code>true</code> if the form has been submitted</p>
+            		</div>
+            	</li>
+            </ul>
+         </div>  
+      </div>
+
+      <div class="section">
+        <h3>Global Object: Other Objects</h3>
+        <div class="content">
+            <p>The following are additional objects within the Global Object.</p> 
+            <ul> 
+              <li>
+                <h3>$el</h3>
+                <div class="content">
+                  <p><strong>jQuery Object</strong></p>
+                  <p>Description: jQuery object for the form being validated</p>
+                </div>
+              </li>
+            	<li>
+            		<h3>$inputs</h3>
+            		<div class="content">
+            			<p><strong>Object</strong></p>
+            			<p>Description: object of the inputs that have been validated</p>
+            		</div>
+            	</li>
+            	<li>
+            		<h3>$groups</h3>
+            		<div class="content">
+            			<p><strong>Object</strong></p>
+            			<p>Description: object of the groups available within the form, groups are added during initialization, groups can be manually added using <span class="code">addGroup(el)</span></p>
+            		</div>
+            	</li>
+            </ul>   
+         </div>  
+      </div>
+
+      <div class="section">
+        <h3>Global Object: Input Category Arrays</h3>
+        <div class="content">
+            <p>Input Category Arrays are used to categorize inputs based on type or data-pattern. Additional types can be added to any category by using <span class="code">addInputTypes(obj)</span> method.</p>
+            <ul> 
+            	<li>
+            		<h3>$checkboxInputs</h3>
+            		<div class="content">
+            			<p><strong>Array</strong></p>
+            			<p>Description: checkbox inputs</p>
+            			<p>Value: <code>['checkbox']</code></p>
+            		</div>
+            	</li>  
+            	<li>
+            		<h3>$customInputs</h3>
+            		<div class="content">
+            			<p><strong>Array</strong></p>
+            			<p>Description: user generated list of inputs, used in conjuction with <span class="code">validateCustom(el)</span></p>
+            			<p>Value: <code>[]</code></p>
+            		</div>
+            	</li>
+            	<li>
+            		<h3>$emailInputs</h3>
+            		<div class="content">
+            			<p><strong>Array</strong></p>
+            			<p>Description: inputs with a type or data-pattern of 'email'</p>
+            			<p>Value: <code>['email']</code></p>
+            		</div>
+            	</li> 
+            	<li>
+            		<h3>$fileInputs</h3>
+            		<div class="content">
+            			<p><strong>Array</strong></p>
+            			<p>Description: inputs with a type of 'file'</p>
+            			<p>Value: <code>['file']</code></p>
+            		</div>
+            	</li> 
+            	<li>
+            		<h3>$hiddenInputs</h3>
+            		<div class="content">
+            			<p><strong>Array</strong></p>
+            			<p>Description: all inputs with a type of 'hidden', hidden inputs are not validated</p>
+            			<p>Value: <code>['hidden']</code></p>
+            		</div>
+            	</li>    
+            	<li>
+            		<h3>$matchInputs</h3>
+            		<div class="content">
+            			<p><strong>Array</strong></p>
+            			<p>Description: inputs with the data-pattern of 'match', see matching for more information</p>
+            			<p>Value: <code>['match']</code></p>
+            		</div>
+            	</li>
+            	<li>
+            		<h3>$numberInputs</h3>
+            		<div class="content">
+            			<p><strong>Array</strong></p>
+            			<p>Description: inputs with a type of 'number' or data-pattern of 'num', number inputs are validated that are within min and max (default:<code>-Infinity</code> and <code>Infinity</code>)</p>
+            			<p>Value: <code>['number', 'num']</code></p>
+            		</div>
+            	</li>   
+            	<li>
+            		<h3>$phoneInputs</h3>
+            		<div class="content">
+            			<p><strong>Array</strong></p>
+            			<p>Description: inputs with a type of 'tel' or data-pattern of 'phone', phone inputs are validated and reformatted</p>
+            			<p>Value: <code>['tel', 'phone']</code></p>
+            		</div>
+            	</li>  
+            	<li>
+            		<h3>$radioInputs</h3>
+            		<div class="content">
+            			<p><strong>Array</strong></p>
+            			<p>Description: radio inputs</p>
+            			<p>Value: <code>['radio']</code></p>
+            		</div>
+            	</li>    
+            	<li>
+            		<h3>$textInputs</h3>
+            		<div class="content">
+            			<p><strong>Array</strong></p>
+            			<p>Description: standard text inputs with a type of 'text' or 'password'</p>
+            			<p>Value: <code>['text','password']</code></p>
+            		</div>
+            	</li>
+           
+            </ul>   
+        </div>  
+      </div>
+
+      <div class="section">
+        <h3>Global Object: Methods</h3>
+        <div class="content">
+            <p>The following are methods intended for public use within any setting function (e.g. extend) through the <span class="code">this</span> parameter. </p>
+            <ul>
+            	<li>
+            		<h3>addGroup(jQuery object)</h3>
+            		<div class="content">
+            			<p>Returns: <strong><em>False</em></strong></p>
+            			<p>A new group is created based on the group attributes found in the provided jQuery object and added to the <code>$groups</code> object. The jQuery object must have the attributes <code>data-group-name</code> and <code>data-group-members</code>.</p>
+            			
+            			<pre class="brush: xml">
+            				<div data-group-name="name" id="name" data-group-members="FirstName LastName">
+				            <label for="FirstName">First Name</label><br>
+				            <input type="text" id="FirstName" name="FirstName" class="text" title="" tabindex="1" value=""  data-pattern="num" min="1" max="10" required data-error-message="First Name is required.">
+				    
+				            <label for="LastName">Last Name</label><br>
+				            <input type="text" required name="LastName" id="LastName" class="text" title="" tabindex="2" value=""  data-pattern="alpha" data-error-message="Last Name is required">
+				            </div>
+            			</pre>
+            			
+            			<pre class="brush: js">
+            				$('form').guardian({ 
+            					extend:function() { 
+            						this.addGroup($('#name')); 
+            						//$groups['name'] = {min: 0, max: Infinity, count: 0, members: ['FirstName', 'LastName']}
+            					}
+            				});</pre>
+
+            		</div>
+            	</li>
+            	<li>
+            		<h3>addInputTypes(object)</h3>
+            		<div class="content">
+            			<p>Returns: <strong><em>False</em></strong></p>
+            			<p>Object key is a category name, value is a type or data-pattern to an input type category</p>
+            			
+            			<pre class="brush: js">
+            				$('form').guardian({ 
+            					extend:function() { 
+            						this.addInputTypes({'number':'dollar'}); //adds 'dollar' to $numberInputs
+            					}
+            				});</pre>
+            		</div>
+            	</li>
+              <li>
+                <h3>addPattern(object)</h3>
+                <div class="content">
+                  <p>Returns: <strong><em>False</em></strong></p>
+                  <p>A new pattern is added to the $patterns object. The object should consist of a 'name':'regexp' pairing. The object may contain many pairings.</p>
+                      
+                  <pre class="brush: js">
+                    $('form').guardian({ 
+                      extend:function() { 
+                        this.addPattern({prodNum:/\d{7}/}); 
+                        //$patterns['prodNum'] = /\d{7}/;
+                      }
+                    });</pre>
+
+                </div>
+              </li>
+            	
+            	<li>
+            		<h3>getInvalid()</h3>
+            		<div class="content">
+            			<p>Returns: <strong>Array</strong></p>
+            			<p>Retrieves an array of names of all currently invalid inputs. NOTE: inputs that have not been validated will be neither valid nor invalid.</p>
+
+            			<pre class="brush: js">
+            				$('form').guardian({ 
+            					failure:function() { 
+            						var failures = this.getInvald(); //['FirstName','LastName']
+            					}
+            				});</pre>
+            		</div>
+            	</li>
+            	<li>
+            		<h3>isFF3()</h3>
+            		<div class="content">
+            			<p>Returns: <strong>Boolean</strong></p>
+            			<p>Checks if the browser is Firefox 3.0 or older</p>
+            		</div>
+            	</li>
+            	<li>
+            		<h3>isIE()</h3>
+            		<div class="content">
+            			<p>Returns: <strong>Boolean</strong></p>
+            			<p>Checks if the browser is Internet Explorer</p>
+            		</div>
+            	</li>
+            	<li>
+            		<h3>validateAll()</h3>
+            		<div class="content">
+            			<p>Returns: <strong>Boolean</strong></p>
+            			<p>Validates the entire form. Returns true if the no validate errors found.</p>
+            		</div>
+            	</li>
+            	<li>
+            		<h3>validateElement(jQuery object)</h3>
+            		<div class="content">
+            			<p>Returns: <strong><em>False</em></strong></p>
+            			<p>Validates the provided jQuery object and sets appropriate class ('ui-state-valid' or 'ui-state-invalid') to the parent.</p>
+            		</div>
+            	</li>
+            </ul>   
+         </div>  
+      </div>
+
+      <div class="section">
+        <h3>Global Object: Other Methods</h3>
+        <div class="content">
+            <ul> 
+            	<li>
+            		<h3>formatPhone(string)</h3>
+            		<div class="content">
+            			<p>Returns: <strong>String</strong></p>
+            			<p>Formats a 10 digit phone number to following pattern: (xxx) xxx-xxxx</p>
+            		</div>
+            	</li>
+            	<li>
+            		<h3>onBlur(event)</h3>
+            		<div class="content">
+            			<p>Returns: <em>false</em></p>
+            			<p>On blur and on change handler for form inputs.</p>
+            		</div>
+            	</li>
+            	<li>
+            		<h3>onFocus(event)</h3>
+            		<div class="content">
+            			<p>Returns: <em>false</em></p>
+            			<p>On focus handler for form inputs.</p>
+            		</div>
+            	</li>
+            	<li> 
+            		<h3>validationHandler(jQuery object)</h3> 
+            		<div class="content"> 
+            			<p>Returns: <em>false</em></p> 
+            			<p>Called by the guardian functions, handles displaying result. Adds classes to the element parent. Note: if using validateCustom you must call this method or create your own handler.</p>
+            		</div> 
+            	<li>
+            		<h3>validateCheckbox(jQuery object)</h3>
+            		<div class="content">
+            			<p>Returns: <strong>Boolean</strong></p>
+            			<p>Used by validateElement, for inputs within the 'checkbox' category</p>
+            		</div>
+            	</li>
+            	<li>
+            		<h3>validateEmail(jQuery object)</h3>
+            		<div class="content">
+            			<p>Returns: <strong>Boolean</strong></p>
+            			<p>Used by validateElement, for inputs within the 'email' category</p>
+            		</div>
+            	</li>
+            	<li>
+            		<h3>validateFile(jQuery object)</h3>
+            		<div class="content">
+            			<p>Returns: <strong>Boolean</strong></p>
+            			<p>Used by validateElement, for inputs within the 'file' category</p>
+            		</div>
+            	</li>
+            	<li>
+            		<h3>validateHidden(jQuery object)</h3>
+            		<div class="content">
+            			<p>Returns: <strong>Boolean</strong></p>
+            			<p>Used by validateElement, for inputs within the 'hidden' category</p>
+            		</div>
+            	</li>
+            	<li>
+            		<h3>validateMatch(jQuery object)</h3>
+            		<div class="content">
+            			<p>Returns: <strong>Boolean</strong></p>
+            			<p>Used by validateElement, for inputs within the 'match' category</p>
+            		</div>
+            	</li>
+            	<li>
+            		<h3>validateNumber(jQuery object)</h3>
+            		<div class="content">
+            			<p>Returns: <strong>Boolean</strong></p>
+            			<p>Used by validateElement, for inputs within the 'number' category</p>
+            		</div>
+            	</li>
+            	<li>
+            		<h3>validatePhone(jQuery object)</h3>
+            		<div class="content">
+            			<p>Returns: <strong>Boolean</strong></p>
+            			<p>Used by validateElement, for inputs within the 'phone' category</p>
+            		</div>
+            	</li>
+            	<li>
+            		<h3>validateRadio(jQuery object)</h3>
+            		<div class="content">
+            			<p>Returns: <strong>Boolean</strong></p>
+            			<p>Used by validateElement, for inputs within the 'radio' category</p>
+            		</div>
+            	</li>
+            	<li>
+            		<h3>validateSelect(jQuery object)</h3>
+            		<div class="content">
+            			<p>Returns: <strong>Boolean</strong></p>
+            			<p>Used by validateElement, for validating select boxes</p>
+            		</div>
+            	</li>
+            	<li>
+            		<h3>validateText(jQuery object)</h3>
+            		<div class="content">
+            			<p>Returns: <strong>Boolean</strong></p>
+            			<p>Used by validateElement, for inputs within the 'text' category</p>
+            		</div>
+            	</li>
+            	<li>
+            		<h3>validateTextarea(jQuery object)</h3>
+            		<div class="content">
+            			<p>Returns: <strong>Boolean</strong></p>
+            			<p>Used by validateElement, for validating textareas</p>
+            		</div>
+            	</li>            	
+            </ul> 
+            
+        </div>  
+      </div>
+
+      <div class="section">
+        <h3>Global Object: Settings</h3>
+        <div class="content">
+            <p>The following are the intended variables to be updated through the guardian invocation.</p>
+            <ul> 
+            	<li>
+            		<h3>before</h3>
+            		<div class="content">
+            			<p><strong>Function</strong></p>
+            			<p>If set, invokes before submit validation</p>
+            			<p>Default: <code>null</code></p>
+            			<pre class="brush: js">
+            				$('form').guardian({ 
+            					before:function() { 
+            						console.log(this);
+            					}
+            				});</pre>
+            		</div>
+            	</li>
+            	<li>
+            		<h3>extend</h3>
+            		<div class="content">
+            			<p><strong>Function</strong></p>
+            			<p>If set, invokes after initialization</p>
+            			<p>Default: <code>null</code></p>
+            			<pre class="brush: js">
+            				$('form').guardian({ 
+            					extend:function() { 
+            						console.log(this);
+            					}
+            				});</pre>
+            		</div>
+            	</li>    
+            	<li>
+            		<h3>failure</h3>
+            		<div class="content">
+            			<p><strong>Function</strong></p>
+            			<p>If set, invokes after submit validation has failed</p>
+            			<p>Default: <code>null</code></p>
+            			<pre class="brush: js">
+            				$('form').guardian({ 
+            					failure:function() { 
+            						console.log(this);
+            					}
+            				});</pre>
+            		</div>
+            	</li>  
+            	<li>
+            		<h3>highlight</h3>
+            		<div class="content">
+            			<p><strong>String</strong></p>
+            			<p>Name of the class for fields that have focus</p>
+            			<p>Default: <code>'ui-state-highlight'</code></p>
+            		</div>
+            	</li>     
+            	<li>
+            		<h3>invalid</h3>
+            		<div class="content">
+            			<p><strong>String</strong></p>
+            			<p>Name of the class for invalid fields</p>
+            			<p>Default: <code>'ui-state-invalid'</code></p>
+            		</div>
+            	</li>   
+            	<li>
+            		<h3>success</h3>
+            		<div class="content">
+            			<p><strong>Function</strong></p>
+            			<p>If set, invokes after submit validation is successful</p>
+            			<p>Default: <code>null</code></p>
+            			<pre class="brush: js">
+            				$('form').guardian({ 
+            					success:function() { 
+            						console.log(this);
+            					}
+            				});</pre>
+            		</div>
+            	</li>    
+            	<li>
+            		<h3>valid</h3>
+            		<div class="content">
+            			<p><strong>String</strong></p>
+            			<p>Name of the class for valid fields</p>
+            			<p>Default: <code>'ui-state-valid'</code></p>
+            		</div>
+            	</li>    
+            	<li>
+            		<h3>validateCustom(jQuery object)</h3>
+            		<div class="content">
+            			<p><strong>Function</strong></p>
+            			<p>Use to create a custom validation process for inputs within the 'custom' catagory (not available for select boxes or textareas)</p>
+            			<p>Default: <code>null</code></p>
+            			<pre class="brush: js">
+            				$('form').guardian({ 
+            					validateCustom:function(el) { 
+            						console.log(el);
+            					}
+            				});</pre>
+            		</div>
+            	</li>                  
+            </ul> 
+        </div>  
+      </div>
+      
+       <a name="log"></a>
+       <div class="section">
+        <h3>Change Log</h3>
+        <div class="log">    
+            <h4>Version 1.0.0</h4> 
+            <p>Feb. 5, 2014</p> 
+            <ul> 
+            	<li>Validate your form the easy way with Guardian.</li>
+            </ul> 
+            
+        </div>  
+      </div>
+      <!-- Finally, to actually run the highlighter, you need to include this JS on your page -->
+      <script type="text/javascript">
+	      SyntaxHighlighter.all()
+	  </script>
+
+  	</body>
+</html>

@@ -1,0 +1,27 @@
+/*variables*/ 
+$invalid-bg: #FCF6E0;
+$invalid-border-color: #BD1A00;
+$valid-border-color: #00B233; 
+$error-message-text: #BD1A00;
+
+.ui-state-invalid { 
+	> input[type="text"], > input[type="tel"], > input[type="email"], > input[type="number"], > select, > textarea { 
+		border-color: $invalid-border-color; 
+		background-image: url(../images/invalid.png);
+		background-position: 95% center;
+		background-repeat: no-repeat; 
+	}	
+}
+
+.ui-state-valid { 
+	> input[type="text"], > input[type="tel"], > input[type="email"], input[type="number"], > select, > textarea { 
+		border-color: $valid-border-color; 
+		background-image: url(../images/valid.png);
+		background-position: 95% center;
+		background-repeat: no-repeat; 
+	}	
+}
+
+.ui-error-message { 
+	color: $error-message-text;
+}

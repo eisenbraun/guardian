@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en"> 	
+	<head>
+		<meta charset="utf-8">
+		<title>Guardian 1.0</title>
+		
+		<meta name="description" content="Guardian is all-purpose Form Validation jQuery Plugins.">
+  		<meta name="author" content="Michael Eisenbraun">
+  		<meta name="viewport" content="initial-scale=1.0">
+  		
+  		<!-- Include *at least* the core style and default theme -->
+  		<link href="../syntaxhighlighter/styles/shCore.css" rel="stylesheet" type="text/css" />
+  		<link href="../syntaxhighlighter/styles/shThemeRDark.css" rel="stylesheet" type="text/css" />
+  		
+  		<link href="../css/screen.css" rel="stylesheet" media="screen">
+  		<link href="../css/docs.css" rel="stylesheet" media="screen">
+  		<link rel="stylesheet" href="css/guardian.css">	
+  		  		
+  		 <!-- Include required JS files -->
+	    <script type="text/javascript" src="../syntaxhighlighter/scripts/shCore.js"></script>
+	 
+		<!--
+		    At least one brush, here we choose JS. You need to include a brush for every 
+		    language you want to highlight
+		-->
+		<script type="text/javascript" src="../syntaxhighlighter/scripts/shBrushJScript.js"></script>
+		<script type="text/javascript" src="../syntaxhighlighter/scripts/shBrushXml.js"></script>
+  		
+	</head>
+	<body>
+		<div class="wrapper"> 
+			<nav>
+	    		<ul>
+	    			<li> 
+	    				<a href="/">Home</a>
+	    			</li>
+	    			<li>
+	    				<a href="/guardian" class="active">Guardian</a>
+	    			</li>
+	    			<li>
+	    				<a href="/columns">Columns</a>
+	    			</li>
+	    			<li>
+	    				<a href="/nutip">NüTip</a>
+	    			</li>
+	    			<li>
+	    				<a href="/lapsus" class="disabled">Lapsus</a>
+	    			</li>
+	    		</ul>
+	    	</nav>
+
+	    	<header>	
+	    		<h1>Guardian</h1>
+	    		<h2>by Michael Eisenbraun</h2>
+	    		
+	    		<p>Guardian is a all-purpose form validation jQuery plugin. It was designed to be flexible and easy to extend to meet any need.</p>
+	    		
+	    			    		
+	    		<footer></footer>
+	    	</header>
+		
+		
+			<section>
+				<article> 
+					<h2>Example 1: Basic Form</h2>
+					<form id="example1" action="javascript:alert('Validation Successful')">
+						<div> 
+							<label>Name<span class="red">*</span></label>
+							<input type="text" name="name" required="required">
+						</div>
+						
+						<div>
+							<label>Email<span class="red">*</span></label>
+							<input type="email" name="email" required="required">
+						</div>
+						
+						<div>
+							<label>Phone</label>
+							<input type="tel" name="phone">
+						</div>
+						
+						<input type="submit" name="submit" value="Submit">
+					</form>
+				</article>
+				<h3>HTML</h3>
+				<pre class="brush: xml"> 
+					<form id="example1" action="javascript:alert('Validation Successful')">
+						<div> 
+							<label>Name<span class="red">*</span></label>
+							<input type="text" name="name" required="required">
+						</div>
+						
+						<div>
+							<label>Email<span class="red">*</span></label>
+							<input type="email" name="email" required="required">
+						</div>
+						
+						<div>
+							<label>Phone</label>
+							<input type="tel" name="phone">
+						</div>
+						
+						<input type="submit" name="submit" value="Submit">		
+					</form>	
+				</pre>
+				
+				<h3>JavaScript</h3>
+				<pre class="brush: js">
+					$('#example1').guardian();
+				</pre>
+			</section>
+			
+			<section>
+				<article> 
+					<h2>Example 2: Error messaging</h2>
+					<form id="example2" class="error-messaging" action="javascript:alert('Validation Successful')">
+						<div> 
+							<label>Name<span class="red">*</span></label>
+							<input type="text" name="name" data-pattern="alpha" required="required" data-empty-message="Please provide a name." data-error-message="Please provide a valid name.">
+						</div>
+						
+						<div>
+							<label>Email<span class="red">*</span></label>
+							<input type="email" name="email" required="required" data-empty-message="Please provide a email." data-error-message="Please provide a valid email.">
+						</div>
+						
+						<div>
+							<label>Phone</label>
+							<input type="tel" name="phone"  data-error-message="Please provide a valid phone number.">
+						</div>
+						
+						<div> 
+							<input type="submit" name="submit" value="Submit">
+						</div>
+					</form>
+				</article>
+				<h3>HTML</h3>
+				<pre class="brush: xml"> 
+					<form id="example2" class="error-messaging" action="javascript:alert('Validation Successful')">
+						<div> 
+							<label>Name<span class="red">*</span></label>
+							<input type="text" name="name" data-pattern="alpha" required="required" data-empty-message="Please provide a name." data-error-message="Please provide a valid name.">
+						</div>
+						
+						<div>
+							<label>Email<span class="red">*</span></label>
+							<input type="email" name="email" required="required" data-empty-message="Please provide a email." data-error-message="Please provide a valid email.">
+						</div>
+						
+						<div>
+							<label>Phone</label>
+							<input type="tel" name="phone"  data-error-message="Please provide a valid phone number.">
+						</div>
+						
+						<div> 
+							<input type="submit" name="submit" value="Submit">
+						</div>
+					</form>
+
+	
+				</pre>
+				
+				<h3>JavaScript</h3>
+				<pre class="brush: js">
+					$('#example1').guardian();
+				</pre>
+
+			</section>
+			
+			<section>
+				<article> 
+					<h2>Example 3: Additional Input Types and Patterns</h2>
+					<form id="example3" action="javascript:alert('Validation Successful')">
+						<div> 
+							<label>Number<span class="red">*</span></label>
+							<input type="number" name="number" required="required">
+						</div>
+						
+						<div>
+							<label>Currency<span class="red">*</span></label>
+							<input type="text" name="currency" data-pattern="currency" required="required">
+						</div>
+						
+						<div>
+							<label>Date<span class="red">*</span></label>
+							<input type="text" name="date" data-pattern="date" required="required">
+						</div>
+						
+						<input type="submit" name="submit" value="Submit">		
+					</form>
+
+				</article>
+				<h3>HTML</h3>
+				<pre class="brush: xml"> 
+					<form id="example3" action="javascript:alert('Validation Successful')">
+						<div> 
+							<label>Number<span class="red">*</span></label>
+							<input type="number" name="number" required="required">
+						</div>
+						
+						<div>
+							<label>Currency<span class="red">*</span></label>
+							<input type="text" name="currency" data-pattern="currency" required="required">
+						</div>
+						
+						<div>
+							<label>Date<span class="red">*</span></label>
+							<input type="text" name="date" data-pattern="date" required="required">
+						</div>
+						
+						<input type="submit" name="submit" value="Submit">		
+					</form>
+				</pre>
+				
+				<h3>JavaScript</h3>
+				<pre class="brush: js">
+					$('#example3').guardian();
+				</pre>
+			</section>
+			
+			<section>
+				<article> 
+					<h2>Example 4: Extending Guardian</h2>
+					<form id="example4" action="javascript:alert('Validation Successful')">
+						<div> 
+							<label>Name<span class="red">*</span></label>
+							<input type="text" name="name" required="required">
+						</div>
+						
+						<div>
+							<label>Email<span class="red">*</span></label>
+							<input type="email" name="email" required="required">
+						</div>
+						
+						<div>
+							<label>Phone</label>
+							<input type="tel" name="phone">
+						</div>
+						
+						<input type="submit" name="submit" value="Submit">		
+					</form>
+
+				</article>
+				<h3>HTML</h3>
+				<pre class="brush: xml"> 
+					<form id="example4" action="javascript:alert('Validation Successful')">
+						<div> 
+							<label>Name<span class="red">*</span></label>
+							<input type="text" name="name" required="required">
+						</div>
+						
+						<div>
+							<label>Email<span class="red">*</span></label>
+							<input type="email" name="email" required="required">
+						</div>
+						
+						<div>
+							<label>Phone</label>
+							<input type="tel" name="phone">
+						</div>
+						
+						<input type="submit" name="submit" value="Submit">		
+					</form>
+				</pre>
+				
+				<h3>JavaScript</h3>
+				<pre class="brush: js"> 					
+					$('#example4').guardian({
+					    //Display the number of invalid fields on submit
+					    failure: function() {
+							this.$el.prepend('<span class="red">There are '+this.getInvalid().length+' invalid fields</span>'); 
+						},
+                        //Disable inputs validating on blur 
+						extend: function() {
+							var $this = this; 
+							$this.$el.off('change blur', ':input', $this.onBlur); 
+						}
+					});				
+				</pre>
+			</section>
+			
+		<footer> 
+    		<article> 
+    			<p>Need more? Read the full <a href="docs/">documentation</a></p>
+    		</article>
+    		<article>
+    			<p>Send Inquires to <a href="mailto:me@michaeleisenbraun.com">me@michaeleisenbraun.com</a></p>
+    		</article>
+    		
+    	
+			<div class="copyright"><sup>&copy;</sup>2014 Michael Eisenbraun</div>
+    	</footer>
+
+		
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+		<script src="js/jquery.guardian-1.0.min.js"></script>
+		
+		<script>
+			SyntaxHighlighter.defaults['gutter'] = true;
+			SyntaxHighlighter.defaults['smart-tabs'] = true;
+			SyntaxHighlighter.defaults['toolbar'] = false;
+			SyntaxHighlighter.all()
+			
+			//example 1 
+			$('#example1').guardian();
+			
+			
+			//example 2 
+			$('#example2').guardian();
+			
+			//example 3 
+			$('#example3').guardian();
+			
+			//example 4 
+			$('#example4').guardian({
+				//Display the number of invalid fields on submit
+			    failure: function() {
+					this.$el.prepend('<span class="red">There are '+this.getInvalid().length+' invalid fields</span>'); 
+				},
+				//Disable inputs validating on blur
+				extend: function() {
+					var $this = this; 
+					$this.$el.off('change blur', ':input', $this.onBlur); 
+				}
+			});		
+			
+		</script> 		
+	</body>
+</html>
