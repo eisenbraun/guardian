@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Guardian : All-purpose form validation" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Guardian</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/eisenbraun/guardian">View on GitHub</a>
+
+          <h1 id="project_title">Guardian</h1>
+          <h2 id="project_tagline">All-purpose form validation</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/eisenbraun/guardian/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/eisenbraun/guardian/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="guardian-jquery-plugin" class="anchor" href="#guardian-jquery-plugin"><span class="octicon octicon-link"></span></a>Guardian jQuery Plugin</h1>
+
+<p><em>Copyright (c) 2014, Michael Eisenbraun</em></p>
+
+<p>Guardian is a all-purpose form validation jQuery plugin. It was designed to be flexible and easy to extend to meet any need.</p>
+
+<h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>Guardian requires jQuery 1.7.2 or higher. </p>
+
+<pre><code>&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script src="js/jquery.guardian-1.0.min.js"&gt;&lt;/script&gt;
+</code></pre>
+
+<p>Initialize Guardian:</p>
+
+<pre><code>$(document).ready(function() { $('#example').guardian(); });
+</code></pre>
+
+<p>CSS: (optional)</p>
+
+<pre><code>&lt;link rel="stylesheet" href="css/guardian.css"&gt;
+</code></pre>
+
+<p>HTML: </p>
+
+<pre><code>&lt;form id="contactForm"&gt;
+    &lt;input 
+        type="text" 
+        name="Address" 
+        id="Address" 
+        class="text" 
+        tabindex="3" value="" 
+        required="" 
+        data-pattern="alphaNum" 
+        data-error-message="Address is required"
+    &gt;
+&lt;/form&gt;
+</code></pre>
+
+<h2>
+<a name="full-documentation" class="anchor" href="#full-documentation"><span class="octicon octicon-link"></span></a>Full Documentation</h2>
+
+<p>Visit <a href="http://jquery.michaeleisenbraun.com/guardian">http://jquery.michaeleisenbraun.com/guardian</a> for full documentation. </p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Guardian maintained by <a href="https://github.com/eisenbraun">eisenbraun</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
