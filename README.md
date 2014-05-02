@@ -6,21 +6,26 @@ Guardian is a all-purpose form validation jQuery plugin. It was designed to be f
 
 ## Installation
 Guardian requires jQuery 1.7.2 or higher. 
- 
-`<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>`
-`<script src="js/jquery.guardian-1.0.min.js"></script>`
+
+``` 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="js/jquery.guardian-1.0.min.js"></script>
+```
 
 Initialize Guardian:
 
-`$(document).ready(function() { $('#example').guardian(); });`
+```
+$(document).ready(function() { $('#example').guardian(); });
+```
 
 CSS: (optional)
-
-`<link rel="stylesheet" href="css/guardian.css">`
+```
+<link rel="stylesheet" href="css/guardian.css">
+```
 
 HTML: 
-
-`<form id="contactForm">
+```
+<form id="contactForm">
 	<input 
 		type="text" 
 		name="Address" 
@@ -31,7 +36,8 @@ HTML:
 		data-pattern="alphaNum" 
 		data-error-message="Address is required"
 	>
-</form>`
+</form>
+```
 
 ## Full Documentation
 Visit <http://jquery.michaeleisenbraun.com/guardian> for full documentation. 
