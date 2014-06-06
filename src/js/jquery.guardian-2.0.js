@@ -88,6 +88,42 @@
          
     };
 
+    /*
+    ## Input Types: 
+    - Text
+    - Hidden
+    - Phone
+    - Number
+    - Email
+    - File
+    - Radio
+    - Checkbox
+    - Select
+    - Textarea
+
+    ## Validation Types:
+    - alpha
+    - alnum
+    - number
+    - currency
+    - zip
+    - year
+    - phone
+    - email
+    - url
+    - date
+
+    ## API 
+    - addPattern
+    - addInputType
+    - addGroup
+    - getInvalid
+    - getValid
+    - getInputs
+    
+    */
+
+
     // A really lightweight plugin wrapper around the constructor, 
     // preventing against multiple instantiations
     $.fn[guardian] = function ( options ) {
