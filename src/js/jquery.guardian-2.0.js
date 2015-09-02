@@ -120,6 +120,18 @@
     - getInvalid
     - getValid
     - getInputs
+
+
+    ## Can I build the form from a JSON string 
+    [
+      {
+        "name"
+        "type"
+        "value"
+        "required"
+        
+      }  
+    ]
     
     */
 
